@@ -1,4 +1,4 @@
-require '../lib/engine'
+require './lib/engine'
 
 describe Engine do
 
