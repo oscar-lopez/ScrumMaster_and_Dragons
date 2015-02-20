@@ -23,3 +23,12 @@ end
 Then(/^deberia ver "(.*?)"$/) do |text|
   last_response.body.should =~ /#{text}/m
 end
+
+Given(/^el usuario click "(.*?)"$/) do |arg1|
+  visit '/actualizar'
+end
+
+Then(/^deberia aparecer respuesta en "(.*?)" el resultado$/) do |text|
+  last_response.body.should =~ /#{text}/m
+end
+

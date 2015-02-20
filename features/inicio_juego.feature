@@ -14,3 +14,7 @@ Scenario:
 	Then deberia ver el boton "enviar"
 	And deberia ver "digite comando"
 	And deberia ver "Respuestas"
+
+Scenario:
+	Given el usuario click "enviar"
+	Then deberia aparecer respuesta en "HOLA" el resultado
