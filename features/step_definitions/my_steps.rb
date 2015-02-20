@@ -12,3 +12,14 @@ end
 Then(/^deberia ver un link para "(.*?)"$/) do |text|
   last_response.body.should =~ /#{text}/m
 end
+
+Given(/^el usuario hace click "(.*?)"$/) do |name|
+  visit '/juego'
+end
+
+Then(/^deberia ver el boton "(.*?)"$/) do |arg1|
+  click_button("enviar")
+end
+Then(/^deberia ver "(.*?)"$/) do |text|
+  last_response.body.should =~ /#{text}/m
+end
