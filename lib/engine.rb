@@ -1,49 +1,55 @@
 class Engine
 
-    @@preguntas = [
-        "hola aprendiz, ¿quieres aprender scrum?",
-        "¿en scrum debo ser ágil?",
-        "¿metodología tradicional es lo mismo que metodología ágil?",
+    @@preguntas  = [
+        "Hola jugador, ¿quieres aprender scrum? contesta 'si' o 'no': ",
+        "¿En scrum debo ser ágil?",
+        "¿Metodología tradicional es lo mismo que metodología ágil?",
+        "¡Haz ganado!"
     ]
 
-    @@respuestas = [ "si", "si", "no" ]
+    @@respuestas = [ "si", "si", "no", "" ]
+
+    @@terminado  = "El juego ya terminó"
+    @@despedida  = "Bueno, adiós"
+    @@perdido    = "Lo siento, perdiste"
 
     def initialize
-        @actual = -1
+        @actual  = 0
+        @perdio  = false
+        @inicio  = false
     end
 
     def parse(txt)
-        txt = txt.chomp.downcase
-        select_dialog(txt)
+        select_dialog(txt.chomp.downcase)
     end
 
     def select_dialog(txt)
 
-        if @actual == -1
-            @actual += 1
-            if txt.include? @@respuestas[@actual]
-                @@preguntas[@actual]
-             else
-                "bueno, adios"
-            end
+        if @perdio or @actual >= @@preguntas.length - 1
+            @@terminado
         elsif @actual == 0
-            @actual += 1
-            if txt.include? @@respuestas[@actual]
-                "bien! " + @@preguntas[@actual]
+            if not @inicio
+                @inicio = true
+                @@preguntas[@actual]
             else
-                "lo siento, perdiste"
+                next_dialog(txt, "Bien! ", @@despedida)
             end
         elsif @actual == 1
-            @actual += 1
-            if txt.include? @@respuestas[@actual]
-                "bien! " + @@preguntas[@actual]
-            else
-                "lo siento, perdiste"
-            end
-        elsif @actual >= 2
-            "ganaste!"
+            next_dialog(txt, "Muy bien! ", @@perdido)
+        elsif @actual == 2
+            next_dialog(txt, "Felicitaciones, ", @@perdido)
         end
 
+    end
+
+    def next_dialog(txt, prefix, bye)
+        if txt.include? @@respuestas[@actual]
+            @actual += 1
+            prefix  + @@preguntas[@actual]
+        else
+            @perdio = true
+            bye
+        end
     end
 
 end
